@@ -17,3 +17,12 @@
   b. 获取验证码 (验证码存储 => redis 数据库 )
   c. 
 2. apidoc 自动生成api文档
+
+### 图片上传
+1. 安装multer模块
+
+```
+npm install multer
+```
+
+
