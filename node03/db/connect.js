@@ -1,10 +1,39 @@
 const mongoose = require('mongoose')
+const db = 'mongodb://localhost/nodeTest'
 
-mongoose.connect('mongodb://localhost/nodeTest', { useNewUrlParser: true, useUnifiedTopology: true })
+exports.connect = () => {
+  // 连接数据库
+  mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  let maxConnectTimes = 0
 
-// 连接数据库
-var db = mongoose.connection // 数据库的连接对象
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', function () {
-  console.log('db ok')
-})
+  return new Promise((resolve, reject) => {
+    // 数据库监听事件
+    mongoose.connection.on('disconnected', () => {
+      console.log('数据库断开重连')
+      if(maxConnectTimes <= 3){
+        maxConnectTimes++
+        mongoose.connect(db)
+      }else{
+        reject()
+        throw new Error('数据库出现问题，请人为处理')
+      }
+    })
+
+    mongoose.connection.on('error', (err) => {
+      console.log('数据库断开重连')
+      if(maxConnectTimes <= 3){
+        maxConnectTimes++
+        mongoose.connect(db)
+      }else{
+        reject(err)
+        throw new Error('数据库出现问题，请人为处理')
+      }
+    })
+
+    mongoose.connection.once('open', () => {
+      console.log('数据库连接成功')
+      resolve()
+    })
+
+  })
+}

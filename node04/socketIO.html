@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/socket.io.js"></script>
+</head>
+<body>
+  <div id="content"></div>
+  <input id="msg" type="text">
+  <button id="submit" >send server</button>
+  <script>
+    const socket = io.connect('ws://localhost:8081/')
+    const content = document.getElementById('content')
+    const msg = document.getElementById('msg')
+    document.querySelector('#submit')
+      .addEventListener('click', () => {
+        let msg2 = msg.value
+        socket.emit('receive', msg2)
+        msg.value = ''
+        content.innerHTML += msg2 + '<br/>'
+      }, false)
+      socket.on('send', msg => {
+        console.log(msg)
+      })
+      socket.on('message', msg =>{
+        content.innerHTML += msg + '<br/>'
+      })
+  </script>
+</body>
+</html>

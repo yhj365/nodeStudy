@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+  <form action="http://localhost:3000/file/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="fileKey">
+    <input type="submit" value="提交">
+  </form>
+  <input type="file" id="file">
+  <button onclick="doupload()">提交</button>
+  <img src="" alt="">
+</body>
+<script>
+  function doupload() {
+    // 获取图片
+    let file = $('#file').get(0).files[0]
+    let formData = new FormData()
+    formData.append('fileKey', file)
+    $.ajax({
+      url: 'http://localhost:3000/file/upload',
+      type: 'post',
+      cache: false,
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(params) {
+        if(params.err === 0){
+          $('img').attr('src', `http://localhost:3000${params.data}`)
+        }else{
+          alert(params.message)
+        }
+      }
+    })
+  }
+</script>
+</html>
