@@ -2,9 +2,9 @@
 
 1. 安装express 
 
-``` js
-npm i express -S
-```
+    npm i express -S
+
+2. 第三方模块引用，从当前目录的node_modules依次向上寻找
 
 ### api接口的书写
   + 接收数据
@@ -36,16 +36,16 @@ npm i express -S
 
 通过promise 解决回调地狱
 
-``` 
-function test(){
-  // 返回Promise
-  return new Promise((resolve, reject) => {
-    // 需要的异步处理
-    成功的时候 resolve()
-    失败的时候 reject()
-  })
-}
-```
+
+    function test(){
+      // 返回Promise
+      return new Promise((resolve, reject) => {
+        // 需要的异步处理
+        成功的时候 resolve()
+        失败的时候 reject()
+      })
+    }
+
 
 根据顺序，链式调用
 test()

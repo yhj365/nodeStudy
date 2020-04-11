@@ -14,8 +14,8 @@ let codes = {}
  * @apiParam {String} ps 密码
  * @apiParam {String} code 验证码
  *
- * @apiSuccess {String} err:0 注册成功
- * @apiSuccess {String} err: 其他为失败
+ * @apiSuccess {String} err: 0 注册成功
+ * 
  */
 router.post('/reg', (req, res) => {
   // 获取数据
@@ -30,8 +30,6 @@ router.post('/reg', (req, res) => {
         if (data.length === 0) {
           return User.insertMany({ us, ps })
         } else {
-          console.log('用户名已存在')
-          // res.send报错?
          res.send({ err: -2, message: '用户名已存在' })
         }
       })
@@ -44,9 +42,6 @@ router.post('/reg', (req, res) => {
   } else {
     return res.send({ err: -1, message: '参数错误' })
   }
-  // 数据处理
-  // 返回数据
-
 })
 
 /**

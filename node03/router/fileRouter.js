@@ -30,7 +30,7 @@ router.post('/upload', upload.single('fileKey'), (req, res) => {
     return res.send({ err: 0, message: '上传类型错误' })
   } else {
     let url = `/public/images/${req.file.filename}`
-    res.send({ err: 0, message: '上传成功', data: url})
+    res.send({ code: 200, message: '上传成功', data: url})
   }
 })
 

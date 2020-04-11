@@ -22,7 +22,7 @@
 1. 安装multer模块
 
 ```
-npm install multer
+npm install multer -S
 ```
 
 
